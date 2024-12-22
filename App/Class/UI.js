@@ -77,15 +77,34 @@ export class UI {
   /**
    * Met à jour l'affichage du Pokémon sauvage actuel.
    */
-  updatePokemonDisplay() {
-    if (this.game.currentPokemon) {
-      getDOMElement.pokemonDisplay.textContent = `${this.game.currentPokemon.name} (${this.game.currentPokemon.type}) est apparu !`;
+  updatePokemonDisplay(pokemon) {
+    const displayElement = getDOMElement.pokemonDisplay;
+
+    // Vérifie si un Pokémon valide est fourni
+    if (pokemon) {
+      // Crée une image pour le sprite du Pokémon
+      const pokemonImage = createDOMElement.img();
+      pokemonImage.src = pokemon.sprite; // Récupère le sprite du Pokémon
+      pokemonImage.alt = pokemon.name; // Définit l'attribut alt avec le nom en français du Pokémon
+      pokemonImage.width = 100; // Définit la largeur de l'image
+
+      // Vider le contenu précédent
+      displayElement.innerHTML = ""; // Ce nettoyage reste mais seulement si un nouveau Pokémon est affecté
+
+      // Ajoute l'image à l'élément de présentation du Pokémon
+      displayElement.appendChild(pokemonImage);
+
+      // Crée un texte pour afficher le nom et les types du Pokémon
+      const pokemonInfo = createDOMElement.p();
+      pokemonInfo.textContent = `${pokemon.name} (${pokemon.type})`;
+
+      // Ajoute les informations sur le Pokémon à l'élément de présentation
+      displayElement.appendChild(pokemonInfo);
     } else {
-      getDOMElement.pokemonDisplay.textContent =
-        "Aucun Pokémon pour le moment.";
+      // Si aucun Pokémon n'est fourni, affiche un message
+      displayElement.textContent = "Aucun Pokémon pour le moment.";
     }
   }
-
   /**
    * Affiche un message dans la section "log" pour enregistrer des événements du jeu.
    *
@@ -117,12 +136,19 @@ export class UI {
   }
 
   /**
-   * Gère l'apparition d'un Pokémon sauvage dans le jeu.
+   * Gère l'apparition d'un Pokémon sauvage de manière aléatoire.
    */
-  spawnPokemon() {
-    const pokemon = this.game.spawnPokemon(); // Fait apparaître un Pokémon sauvage
-    this.updatePokemonDisplay(); // Met à jour l'affichage du Pokémon sauvage
-    this.logMessage(`Un ${pokemon.name} sauvage est apparu !`); // Affiche un message dans le log
+  async spawnPokemon() {
+    const pokemon = await this.game.spawnPokemon(); // Appelle spawnPokemon depuis Game.js
+
+    if (pokemon) {
+      // Met à jour l'affichage du Pokémon
+      this.updatePokemonDisplay(pokemon);
+      this.logMessage(`Un ${pokemon.name} sauvage est apparu !`);
+    } else {
+      this.updatePokemonDisplay(null);
+      this.logMessage("Aucun Pokémon n'a été trouvé.");
+    }
   }
 
   /**
@@ -155,8 +181,12 @@ export class UI {
   attemptCapture(type) {
     const result = this.game.attemptCapture(type); // Tente de capturer le Pokémon avec la Pokéball choisie
     this.logMessage(result.message); // Affiche le résultat de la capture dans le log
+
+    // Met à jour l'affichage
     this.updateInventory(); // Met à jour l'affichage de l'inventaire
     this.updateCaughtCount(); // Met à jour le compteur de Pokémon capturés
-    this.updatePokemonDisplay(); // Met à jour l'affichage du Pokémon sauvage
+
+    // Met à jour l'affichage du Pokémon sauvage
+    this.updatePokemonDisplay(this.game.currentPokemon); // Passe le Pokémon actuel
   }
 }

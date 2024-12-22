@@ -1,0 +1,45 @@
+@startuml usecase
+left to right direction
+
+package "UI" {
+  actor "Joueur" as Joueur
+
+  usecase "Faire apparaître un Pokémon" as UC1
+  usecase "Capturer un Pokémon" as UC2
+  usecase "Ajouter une Pokéball" as UC3
+  usecase "Réinitialiser le jeu" as UC4
+  usecase "Voir les Pokémon capturés" as UC5
+
+  Joueur -> UC1
+  Joueur -> UC2
+  Joueur -> UC3
+  Joueur -> UC4
+  Joueur -> UC5
+}
+
+package "Game" {
+  usecase "Fuite du Pokémon" as UC7
+  usecase "Résister à la capture" as UC8
+  usecase "Pokémon capturé" as UC9   
+  
+  UC2 -> UC7 : <<extends>> Capture échouée -> Pokémon fuit
+  UC2 -> UC8 : <<extends>> Capture échouée -> Pokémon résiste
+  UC2 -> UC9 : <<includes>> Pokémon capturé
+}
+
+package "Inventory" {
+  usecase "Utiliser une Pokéball" as UC9a
+  usecase "Réinitialiser les Pokéballs" as UC10
+  usecase "Ajouter Pokémon capturé" as UC11 
+  
+  UC9a -> UC10 : <<include>> Réinitialiser les Pokéballs
+  UC9a -> UC11 : <<include>> Ajouter Pokémon capturé
+}
+
+package "API" {
+  usecase "Appeler l'API Pokémon" as UC6
+}
+
+UC1 -> UC6 : <<include>> Appel à l'API pour récupérer le Pokémon
+UC9a -> UC11 : <<include>> Ajouter Pokémon capturé à l'inventaire
+@enduml

@@ -2,6 +2,7 @@
 
 import { Pokemon } from "./Pokemon.js";
 import { Inventory } from "./Inventory.js";
+import { fetchPokemonApi } from "../helpers/fetchPokemonApi.js";
 
 /**
  * Classe coordonnant le jeu Pokémon.
@@ -31,15 +32,37 @@ export class Game {
    * Fait apparaître un Pokémon aléatoire.
    * @returns {Pokemon} Le Pokémon apparu.
    */
-  spawnPokemon() {
-    const pokemons = [
-      new Pokemon("Pikachu", "Electric", 0.6),
-      new Pokemon("Charmander", "Fire", 0.4),
-      new Pokemon("Bulbasaur", "Grass", 0.5),
-    ];
+  async spawnPokemon() {
+    try {
+      const pokemons = await fetchPokemonApi(); // Récupère les Pokémon depuis l'API
 
-    this.currentPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
-    return this.currentPokemon;
+      // Vérifie si l'API a renvoyé des Pokémon
+      if (!Array.isArray(pokemons) || pokemons.length === 0) {
+        this.currentPokemon = null; // Si aucun Pokémon n'est récupéré
+        return null;
+      }
+
+      // Choisit un Pokémon au hasard dans la liste récupérée
+      const randomPokemonData =
+        pokemons[Math.floor(Math.random() * pokemons.length)];
+
+      // Vérifie si le Pokémon aléatoire est valide
+      if (!randomPokemonData) {
+        console.error("Aucun Pokémon valide trouvé.");
+        this.currentPokemon = null;
+        return null;
+      }
+
+      // Crée une nouvelle instance de Pokémon avec les données de l'API
+      const randomPokemon = new Pokemon(randomPokemonData);
+      this.currentPokemon = randomPokemon;
+
+      return randomPokemon; // Retourne le Pokémon choisi
+    } catch (error) {
+      console.error("Erreur lors de l'apparition du Pokémon :", error);
+      this.currentPokemon = null;
+      return null;
+    }
   }
 
   /**
@@ -47,9 +70,9 @@ export class Game {
    * @param {string} type - Le type de Pokéball utilisé.
    * @returns {Object} Résultat de la tentative (succès et message).
    */
-
   attemptCapture(type) {
-    const successRate = this.inventory.usePokeball(type);
+    const successRate = this.inventory.usePokeball(type); // Récupère le taux de réussite de la Pokéball
+
     if (!successRate) {
       return {
         success: false,
@@ -57,6 +80,15 @@ export class Game {
       };
     }
 
+    // Vérification si un Pokémon est bien présent à capturer
+    if (!this.currentPokemon) {
+      return {
+        success: false,
+        message: "Aucun Pokémon à capturer. La Pokéball a été utilisée.",
+      };
+    }
+
+    // Si un Pokémon est présent et qu'il est capturé
     if (this.currentPokemon && this.currentPokemon.isCaught(successRate)) {
       this.caughtCount++;
       const capturedPokemon = this.currentPokemon;
@@ -67,6 +99,7 @@ export class Game {
       };
     }
 
+    // Si aucun Pokémon n'est capturé mais que l'on tente une capture
     if (this.currentPokemon && Math.random() > 0.5) {
       const escapedPokemon = this.currentPokemon;
       this.currentPokemon = null;
@@ -78,9 +111,10 @@ export class Game {
       }
     }
 
+    // Si le Pokémon décide de rester dans le combat
     return {
       success: false,
-      message: `Aucun Pokémon à capturer. La Pokéball a été utilisée`,
+      message: `La Pokéball a été utilisée, mais ${this.currentPokemon.name} a résisté ! Il reste dans la bataille.`,
     };
   }
 

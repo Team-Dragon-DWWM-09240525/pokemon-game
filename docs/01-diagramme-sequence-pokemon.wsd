@@ -1,0 +1,26 @@
+@startuml diagram-sequence
+actor Joueur
+participant "GameApp" as App
+participant "UI" as UI
+participant "Game" as Game
+participant "Inventory" as Inventory
+participant "Pokeballs" as Pokeballs
+participant "fetchPokemonApi" as API
+
+Joueur -> UI : Clique sur "Faire apparaître un Pokémon"
+UI -> Game : spawnPokemon()   // UI demande à Game de faire apparaître un Pokémon
+Game -> API : fetchPokemonApi()   // Game demande à l'API de récupérer un Pokémon
+API -> Game : Retourne un Pokémon   // L'API retourne un Pokémon
+Game -> UI : Retourne Pokémon  // Game envoie le Pokémon à UI pour l'affichage
+UI -> Pokeballs : Affiche Pokéballs   // UI affiche les Pokéballs disponibles
+Joueur -> UI : Clique sur "Capturer Pokémon"
+UI -> Game : attemptCapture(type)   // UI demande à Game d'essayer de capturer le Pokémon
+Game -> Inventory : usePokeball(type)   // Game utilise la Pokéball depuis Inventory
+Inventory -> Pokeballs : Décrémenter le nombre de Pokéball   // Pokéballs décrémenté
+Game -> UI : Met à jour l'affichage (Pokémon capturé ou évasion)  // UI met à jour l'affichage en fonction du résultat
+Joueur -> UI : Clique sur "Réinitialiser le jeu"
+UI -> Game : resetGame()   // UI demande à Game de réinitialiser le jeu
+Game -> Inventory : resetInventory()   // Game réinitialise l'inventaire
+Inventory -> Pokeballs : Réinitialise les Pokéballs   // Pokéballs réinitialisés
+Game -> UI : Réinitialise le jeu et l'affichage  // UI réinitialise l'affichage
+@enduml
