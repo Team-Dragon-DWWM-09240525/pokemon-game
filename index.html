@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu Pokémon</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <header class="has-text-centered">
+                <h1 class="title">Jeu Pokémon</h1>
+                <p class="subtitle">Attrapez-les tous !</p>
+            </header>
+            <div id="game-container" class="columns is-variable is-6">
+                <!-- Section Pokémon -->
+                <div class="column is-one-third">
+                    <div class="box">
+                        <h2 class="title is-5">Un Pokémon sauvage apparaît !</h2>
+                        <p id="pokemon-display" class="notification is-warning has-text-centered">
+                            Aucun Pokémon pour le moment.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Section Inventaire -->
+                <div class="column is-one-third">
+                    <div class="box">
+                        <h2 class="title is-5">Inventaire</h2>
+                        <ul id="inventory-list" class="content"></ul>
+                        <p id="pokemon-caught" class="notification is-dark has-text-white mt-2">
+                            Pokémon capturés : <span id="caught-count">0</span>
+                        </p>
+                        <button id="add-pokeball" class="button is-success is-fullwidth mt-3">
+                            Ajouter une Pokéball aléatoire
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section Actions -->
+                <div class="column is-one-third">
+                    <div class="box">
+                        <h2 class="title is-5">Actions</h2>
+                        <button id="spawn-pokemon" class="button is-primary is-fullwidth mb-3">
+                            Faire apparaître un Pokémon
+                        </button>
+                        <div id="pokeball-buttons" class="buttons are-medium"></div>
+                        <button id="reset-game" class="button is-danger is-fullwidth mt-3">
+                            Réinitialiser le jeu
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Journal -->
+            <div id="log-section" class="box mt-5">
+                <h2 class="title is-5">Journal</h2>
+                <div id="log" class="content"></div>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="./App/Class/Game.js"></script>
+</body>
+
+</html>

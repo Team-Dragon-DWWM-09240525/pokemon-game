@@ -1,0 +1,31 @@
+@startuml class-pokemon-game
+class Game {
+    - inventory: Inventory
+    - currentPokemon: Pokemon
+    - caughtCount: int
+    ---
+    + spawnPokemon(): Pokemon
+    + attemptCapture(type: string): Object
+    + resetGame(): void
+}
+
+class Pokemon {
+    - name: string
+    - type: string
+    - catchRate: float
+    ---
+    + isCaught(successRate: float): boolean
+}
+
+class Inventory {
+    - pokeballs: Map<string, Object>
+    ---
+    + getInventory(): Object
+    + usePokeball(type: string): float
+    + addRandomPokeball(): string
+}
+
+Game --> Inventory : "Gère"
+Game --> Pokemon : "Fait apparaître"
+Inventory --> "1..*" Pokemon : "Utilise pour capturer"
+@enduml
