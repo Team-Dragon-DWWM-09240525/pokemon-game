@@ -1,6 +1,6 @@
 "use strict";
 
-import { pokeballs } from "../helpers/pokeballs.js"; // NameSpace
+import { pokeballs, resetPokeballs } from "../helpers/pokeballs.js"; // NameSpace
 
 /**
  * Classe représentant l'inventaire des Pokéballs par défaut.
@@ -21,6 +21,13 @@ export class Inventory {
       inventory[type] = data.count;
     }
     return inventory;
+  }
+
+  /**
+   * Réinitialise l'inventaire aux valeurs par défaut.
+   */
+  resetInventory() {
+    resetPokeballs(); // Appelle la fonction pour réinitialiser les Pokéballs
   }
 
   /**
@@ -51,4 +58,3 @@ export class Inventory {
     return randomType;
   }
 }
-
