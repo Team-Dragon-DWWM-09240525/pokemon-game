@@ -30,5 +30,3 @@ export class Pokemon {
     return Math.random() < successRate * this.catchRate;
   }
 }
-
-

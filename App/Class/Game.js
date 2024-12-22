@@ -88,7 +88,7 @@ export class Game {
    * Réinitialise le jeu.
    */
   resetGame() {
-    this.inventory = new Inventory();
+    this.inventory.resetInventory(); // Appelle la méthode pour réinitialiser l'inventaire
     this.currentPokemon = null;
     this.caughtCount = 0;
   }
