@@ -1,0 +1,13 @@
+# Ignorer les fichiers de configuration sensibles
+config/*.txt
+
+# Ignorer les fichiers de logs
+logs/
+*.log
+
+# Ignorer les fichiers spécifiques à l'environnement local
+.env
+.DS_Store
+
+
+
