@@ -1,9 +1,13 @@
-
 # Pokémon Game - Projet de Formation DWWM
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/votre-utilisateur/pokemon-game)
 [![Licence](https://img.shields.io/badge/licence-MIT-green)](https://opensource.org/licenses/MIT)
 
+## Démo en ligne
+
+Vous pouvez accéder à la version en ligne de ce projet via le lien suivant :
+
+[Pokémon Game - GitHub Pages](https://team-dragon-dwwm-09240525.github.io/pokemon-game/)
 
 ## Description
 
@@ -46,7 +50,7 @@ pokemon-game
 
 - Un navigateur moderne (Chrome, Firefox, etc.)
 - Connexion internet pour charger Bulma (framework CSS)
-  
+
 ## Installation
 
 1. Clonez ce repository sur votre machine locale :
@@ -83,11 +87,9 @@ Ce projet est destiné à :
    - Création et utilisation des classes en JavaScript.
    - Gestion de l'état des objets (Pokémon, inventaire, etc.).
    - Interaction entre objets via des méthodes (par exemple, `isCaught()` dans la classe `Pokemon`).
-   
 2. **Apprendre à manipuler le DOM** :
    - Mise à jour dynamique de l'interface utilisateur avec JavaScript.
    - Gestion des événements et interactions utilisateur via `addEventListener`.
-   
 3. **Travailler sur la logique de jeu et la gestion des événements** :
    - Implémentation d'un système de captures avec des taux de réussite et des réactions aléatoires.
    - Mise en place d'un journal pour suivre les actions du jeu.
