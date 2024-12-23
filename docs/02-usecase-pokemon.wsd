@@ -1,0 +1,18 @@
+@startuml usecase
+left to right direction
+
+actor "Joueur" as Joueur
+
+usecase "Faire apparaître un Pokémon" as UC1
+usecase "Capturer un Pokémon" as UC2
+usecase "Ajouter une Pokéball" as UC3
+usecase "Réinitialiser le jeu" as UC4
+usecase "Voir les Pokémon capturés" as UC5
+
+Joueur -> UC1
+Joueur -> UC2
+Joueur -> UC3
+Joueur -> UC4
+Joueur -> UC5
+@enduml
+

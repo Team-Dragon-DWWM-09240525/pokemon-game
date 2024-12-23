@@ -1,0 +1,50 @@
+@startuml diagram-class
+class Game {
+  - inventory : Inventory
+  - currentPokemon : Pokemon
+  - caughtCount : int
+  + spawnPokemon() : Pokemon
+  + attemptCapture(type: string) : Object
+  + resetGame() : void
+}
+
+class Inventory {
+  - pokeballs : Object
+  + getInventory() : Object
+  + resetInventory() : void
+  + usePokeball(type: string) : number|null
+  + addRandomPokeball() : string
+}
+
+class Pokemon {
+  - name : string
+  - type : string
+  - catchRate : number
+  + isCaught(successRate: number) : boolean
+}
+
+class UI {
+  - game : Game
+  + initialize() : void
+  + updateInventory() : void
+  + generatePokeballButtons() : void
+  + updateCaughtCount() : void
+  + updatePokemonDisplay() : void
+  + logMessage(message: string) : void
+  + spawnPokemon() : void
+  + attemptCapture(type: string) : void
+  + resetGame() : void
+}
+
+class Pokeballs {
+  - PokeBall : { count: int, successRate: float }
+  - SuperBall : { count: int, successRate: float }
+  - HyperBall : { count: int, successRate: float }
+  - MasterBall : { count: int, successRate: float }
+}
+
+Game "1" -- "1" Inventory : "contient"
+Game "1" -- "1" Pokemon : "a"
+UI "1" -- "1" Game : "contrôle"
+Inventory "1" -- "1" Pokeballs : "utilise"
+@enduml

@@ -31,19 +31,26 @@ pokemon-game
 ├─ App
 │  ├─ Class
 │  │  ├─ Inventory.js      # Gère l'inventaire des Pokéballs
-│  │  ├─ GameApp.js        # Application principale, initialisation du jeu et de l'UI
-│  │  ├─ Game.js           # Logique du jeu, gestion des Pokémon et des captures
-│  │  ├─ Pokemon.js        # Modélisation d'un Pokémon
-│  │  └─ UI.js             # Gestion de l'interface utilisateur
+│  │  ├─ GameApp.js        # Initialise le jeu et l'UI
+│  │  ├─ Game.js           # Logique du jeu, gestion des Pokémon
+│  │  ├─ Pokemon.js        # Modélise un Pokémon
+│  │  └─ UI.js             # Gère l'affichage et les interactions UI
 │  ├─ helpers
-│  │  ├─ domUtils.js       # Fonctions utilitaires pour manipuler le DOM
-│  │  └─ pokeballs.js      # Définition et gestion des types de Pokéballs
+│  │  ├─ domUtils.js       # Fonctions utilitaires pour le DOM
+│  │  └─ pokeballs.js      # Définition et gestion des Pokéballs
 │  └─ app.js               # Point d'entrée de l'application
-├─ index.html              # Fichier HTML principal, structure du jeu
+├─ index.html              # Structure HTML du jeu
 ├─ README.md               # Documentation du projet
-└─ docs
-   ├─ 01-usecase.wsd       # Cas d'utilisation
-   └─ 02-uml-diagram-class.wsd  # Diagramme de classes UML
+├─ docs
+│  ├─ 01-diagramme-sequence-pokemon.wsd   # Diagramme de séquence
+│  ├─ 02-usecase-pokemon.wsd               # Cas d'utilisation
+│  └─ 03-diagramme-class-pokemon.wsd      # Diagramme de classes
+├─ LICENSE                  # Licence du projet
+├─ .gitignore               # Fichiers à ignorer par Git
+├─ favicon.ico              # Favicon du site
+└─ .vscode
+   └─ extensions.json       # Extensions recommandées pour VS Code
+
 ```
 
 ## Prérequis
