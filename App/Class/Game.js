@@ -80,7 +80,7 @@ export class Game {
 
     return {
       success: false,
-      message: `Aucun Pokémon à capturer. La Pokéball a été utilisée`,
+      message: `La Pokéball a été utilisée, mais ${this.currentPokemon.name} a résisté ! Il reste dans la bataille`,
     };
   }
 

@@ -61,7 +61,9 @@ export class UI {
     const inventory = this.game.inventory.getInventory();
 
     for (const [type, count] of Object.entries(inventory)) {
-     
+      const li = createDOMElement.li();
+      li.textContent = `${type}: ${count}`;
+      getDOMElement.inventoryList.appendChild(li);
     }
   }
 
@@ -69,50 +71,91 @@ export class UI {
    * Met à jour l'affichage du nombre de Pokémon capturés.
    */
 
-
+  updateCaughtCount() {
+    getDOMElement.caughtCountDisplay.textContent = this.game.caughtCount;
+  }
 
   /**
    * Met à jour l'affichage du Pokémon sauvage actuel.
    */
-
-
+  updatePokemonDisplay() {
+    if (this.game.currentPokemon) {
+      getDOMElement.pokemonDisplay.textContent = `${this.game.currentPokemon.name} (${this.game.currentPokemon.type}) est apparu !`;
+    } else {
+      getDOMElement.pokemonDisplay.textContent =
+        "Aucun Pokémon pour le moment.";
+    }
+  }
 
   /**
    * Affiche un message dans la section "log" pour enregistrer des événements du jeu.
    *
    * @param {string} message - Le message à afficher dans le log.
    */
-
-
+  logMessage(message) {
+    const logEntry = createDOMElement.p();
+    logEntry.textContent = message;
+    getDOMElement.log.prepend(logEntry);
+  }
 
   /**
    * Génère les boutons pour chaque type de Pokéball à partir de l'inventaire.
    */
+  generatePokeballButtons() {
+    getDOMElement.pokeballButtonsContainer.innerHTML = "";
+    const inventory = this.game.inventory.getInventory();
 
+    for (const type of Object.keys(inventory)) {
+      const button = createDOMElement.button();
+      button.className = "button is-info is-medium";
+      button.textContent = `${type}`;
+
+      button.addEventListener("click", () => this.attemptCapture(type));
+      getDOMElement.pokeballButtonsContainer.appendChild(button);
+    }
+  }
 
   /**
    * Gère l'apparition d'un Pokémon sauvage dans le jeu.
    */
-
-
+  spawnPokemon() {
+    const pokemon = this.game.spawnPokemon();
+    this.updatePokemonDisplay();
+    this.logMessage(`Un ${pokemon.name} sauvage est apparu !`);
+  }
 
   /**
    * Réinitialise le jeu et réinitialise l'affichage.
    */
-
-
+  resetGame() {
+    this.game.resetGame();
+    this.updateInventory();
+    this.generatePokeballButtons();
+    this.updateCaughtCount();
+    this.updatePokemonDisplay();
+    getDOMElement.log.innerHTML = "";
+    this.logMessage("Le jeu a été réinitialisé !");
+  }
 
   /**
    * Ajoute une Pokéball aléatoire à l'inventaire.
    */
-
-
+  addPokeball() {
+    const addedType = this.game.inventory.addRandomPokeball();
+    this.updateInventory();
+    this.logMessage(`Une ${addedType} a été ajoutée à l'inventaire.`);
+  }
 
   /**
    * Tente de capturer un Pokémon en utilisant une Pokéball spécifique.
    *
    * @param {string} type - Le type de Pokéball à utiliser pour la capture.
    */
-
-
+  attemptCapture(type) {
+    const result = this.game.attemptCapture(type);
+    this.logMessage(result.message);
+    this.updateInventory();
+    this.updateCaughtCount();
+    this.updatePokemonDisplay();
+  }
 }
