@@ -99,7 +99,7 @@ export class Game {
 
     return {
       success: false,
-      message: `Aucun Pokémon à capturer. La ${type} a été utilisée`,
+      message: `Aucun Pokémon à capturer. La ${type} a été utilisée !`,
     };
   }
 
