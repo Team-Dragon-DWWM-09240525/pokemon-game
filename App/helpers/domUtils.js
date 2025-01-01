@@ -16,4 +16,5 @@ export const createDOMElement = {
   li: () => document.createElement("li"),
   p: () => document.createElement("p"),
   button: () => document.createElement("button"),
+  img: () => document.createElement("img"),
 };

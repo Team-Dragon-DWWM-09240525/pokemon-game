@@ -78,12 +78,25 @@ export class UI {
   /**
    * Met à jour l'affichage du Pokémon sauvage actuel.
    */
-  updatePokemonDisplay() {
-    if (this.game.currentPokemon) {
-      getDOMElement.pokemonDisplay.textContent = `${this.game.currentPokemon.name} (${this.game.currentPokemon.type}) est apparu !`;
+  updatePokemonDisplay(pokemon) {
+    const displayElement = getDOMElement.pokemonDisplay;
+
+    if (pokemon) {
+      const pokemonImage = createDOMElement.img();
+      pokemonImage.src = pokemon.sprite;
+      pokemonImage.alt = pokemon.name;
+      pokemonImage.width = 100;
+
+      displayElement.innerHTML = "";
+
+      displayElement.appendChild(pokemonImage);
+
+      const pokemonInfo = createDOMElement.p();
+      pokemonInfo.textContent = `${pokemon.name} (${pokemon.type})`;
+
+      displayElement.appendChild(pokemonInfo);
     } else {
-      getDOMElement.pokemonDisplay.textContent =
-        "Aucun Pokémon pour le moment.";
+      displayElement.textContent = "Aucun Pokémon pour le moment.";
     }
   }
 
@@ -118,10 +131,16 @@ export class UI {
   /**
    * Gère l'apparition d'un Pokémon sauvage dans le jeu.
    */
-  spawnPokemon() {
-    const pokemon = this.game.spawnPokemon();
-    this.updatePokemonDisplay();
-    this.logMessage(`Un ${pokemon.name} sauvage est apparu !`);
+  async spawnPokemon() {
+    const pokemon = await this.game.spawnPokemon();
+
+    if (pokemon) {
+      this.updatePokemonDisplay(pokemon);
+      this.logMessage(`Un ${pokemon.name} sauvage est apparu !`);
+    } else {
+      this.updatePokemonDisplay(null);
+      this.logMessage(`Aucun Pokémon n'a été trouvé !`);
+    }
   }
 
   /**

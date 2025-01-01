@@ -6,6 +6,7 @@ class Game {
   + spawnPokemon() : Pokemon
   + attemptCapture(type: string) : Object
   + resetGame() : void
+  + fetchPokemonApi() : Pokemon  // La méthode qui appelle l'API pour récupérer un Pokémon
 }
 
 class Inventory {
@@ -19,6 +20,7 @@ class Inventory {
 class Pokemon {
   - name : string
   - type : string
+  - sprite : string
   - catchRate : number
   + isCaught(successRate: number) : boolean
 }
@@ -43,8 +45,13 @@ class Pokeballs {
   - MasterBall : { count: int, successRate: float }
 }
 
+class fetchPokemonApi {
+  + fetchPokemonApi() : Pokemon  // Fonction qui récupère les Pokémon de l'API
+}
+
 Game "1" -- "1" Inventory : "contient"
 Game "1" -- "1" Pokemon : "a"
+Game "1" -- "1" fetchPokemonApi : "utilise"
 UI "1" -- "1" Game : "contrôle"
 Inventory "1" -- "1" Pokeballs : "utilise"
 @enduml

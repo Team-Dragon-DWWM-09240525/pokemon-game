@@ -2,6 +2,7 @@
 
 import { Pokemon } from "./Pokemon.js";
 import { Inventory } from "./Inventory.js";
+import { fetchPokemonApi } from "../helpers/fetchPokemonApi.js";
 
 /**
  * Classe coordonnant le jeu Pokémon.
@@ -31,15 +32,33 @@ export class Game {
    * Fait apparaître un Pokémon aléatoire.
    * @returns {Pokemon} Le Pokémon apparu.
    */
-  spawnPokemon() {
-    const pokemons = [
-      new Pokemon("Pikachu", "Electric", 0.6),
-      new Pokemon("Charmander", "Fire", 0.4),
-      new Pokemon("Bulbasaur", "Grass", 0.5),
-    ];
+  async spawnPokemon() {
+    try {
+      const pokemons = await fetchPokemonApi();
 
-    this.currentPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
-    return this.currentPokemon;
+      if (!Array.isArray(pokemons) || pokemons.length === 0) {
+        this.currentPokemon = null;
+        return null;
+      }
+
+      const randomPokemonData =
+        pokemons[Math.floor(Math.random() * pokemons.length)];
+
+      if (!randomPokemonData) {
+        console.error("Aucun Pokémon valide trouvé");
+        this.currentPokemon = null;
+        return null;
+      }
+
+      const randomPokemon = new Pokemon(randomPokemonData);
+      this.currentPokemon = randomPokemon;
+
+      return randomPokemon;
+    } catch (error) {
+      console.error("Erreur lors de l'appartion du Pokémon : ", error.message);
+      this.currentPokemon = null;
+      return null;
+    }
   }
 
   /**
@@ -80,7 +99,7 @@ export class Game {
 
     return {
       success: false,
-      message: `Aucun Pokémon à capturer. La Pokéball a été utilisée`,
+      message: `Aucun Pokémon à capturer. La ${type} a été utilisée`,
     };
   }
 

@@ -5,19 +5,22 @@
 export class Pokemon {
   name;
   type;
+  sprite;
   catchRate;
 
   /**
    * Le constructor sert à construire un nouvel objet
    *
-   * @param {string} name - Le nom du Pokémon
+   * @param {string} name - Le nom en français du Pokémon
    * @param {string} type - Le type du Pokémon
-   * @param {number} catchRate - Le taux de capture du Pokémon (0 à 1)
+   * @param {string} sprite - Le sprite (image) du Pokémon
+   * @param {number} catchRate - Le taux de capture depuis l'API
    */
-  constructor(name, type, catchRate) {
-    this.name = name;
-    this.type = type;
-    this.catchRate = catchRate;
+  constructor(data) {
+    this.name = data.name.fr;
+    this.type = data.types.map((type) => type.name).join(", ");
+    this.sprite = data.sprites.regular;
+    this.catchRate = data.catch_rate;
   }
   /**
    * Vérifie si le Pokémon est capturé
@@ -27,6 +30,6 @@ export class Pokemon {
    */
   isCaught(successRate) {
     //Calcule si le Pokémon est capturé en multipliant le taux de capture par le taux de réussite.
-    return Math.random() < successRate * this.catchRate;
+    return Math.random() < successRate * (this.catchRate / 255);
   }
 }
