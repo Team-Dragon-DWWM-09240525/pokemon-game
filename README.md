@@ -1,6 +1,6 @@
 # Pokémon Game - Projet de Formation DWWM
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/votre-utilisateur/pokemon-game)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/Team-Dragon-DWWM-09240525/pokemon-game)
 [![Licence](https://img.shields.io/badge/licence-MIT-green)](https://opensource.org/licenses/MIT)
 
 ## Démo en ligne
@@ -64,7 +64,7 @@ pokemon-game
 1. Clonez ce repository sur votre machine locale :
 
    ```bash
-   git clone https://github.com/votre-utilisateur/pokemon-game.git
+   git clone https://github.com/Team-Dragon-DWWM-09240525/pokemon-game.git
    ```
 
 2. Ouvrez le fichier `index.html` dans votre navigateur pour lancer le jeu.
