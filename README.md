@@ -1,6 +1,6 @@
 # Pokémon Game - Projet de Formation DWWM
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/votre-utilisateur/pokemon-game)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/votre-utilisateur/pokemon-game)
 [![Licence](https://img.shields.io/badge/licence-MIT-green)](https://opensource.org/licenses/MIT)
 
 ## Démo en ligne
@@ -14,6 +14,10 @@ Vous pouvez accéder à la version en ligne de ce projet via le lien suivant :
 Ce projet implémente un jeu Pokémon en utilisant les principes de la programmation orientée objet (POO) pour faciliter l'apprentissage des étudiants en développement web. Le jeu permet aux utilisateurs de capturer des Pokémon à l'aide de différentes Pokéballs, gérer un inventaire, et afficher les événements dans un journal.
 
 L'API Pokémon est intégrée pour enrichir l'expérience en récupérant des données en temps réel sur les Pokémon, telles que leur nom, type, et image, directement depuis la base de données Pokémon publique.
+
+La nouvelle version 1.1.0 intègre désormais une API Pokémon pour générer dynamiquement les Pokémon dans le jeu.
+
+Le projet se compose de plusieurs classes permettant de gérer les fonctionnalités du jeu, l'interface utilisateur (UI), ainsi que la logique du jeu elle-même. Ce projet est conçu pour aider les étudiants à comprendre les concepts clés de la POO, tels que l'encapsulation, l'héritage, et les objets, tout en travaillant sur une application interactive.
 
 ## Fonctionnalités
 
