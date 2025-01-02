@@ -66,16 +66,24 @@ export class Game {
    * @param {string} type - Le type de Pokéball utilisé.
    * @returns {Object} Résultat de la tentative (succès et message).
    */
-
   attemptCapture(type) {
+    // Vérification si un Pokémon est bien présent à capturer
+    if (!this.currentPokemon) {
+      return {
+        success: false,
+        message: `Aucun Pokémon à capturer. La ${type} a été utilisée !`,
+      };
+    }
+
+    // Récupère le taux de réussite de la Pokéball
     const successRate = this.inventory.usePokeball(type);
     if (!successRate) {
       return {
         success: false,
-        message: "Pas de Pokéballs restantes !",
+        message: `Pas de ${type} restantes !`,
       };
     }
-
+    // Si un Pokémon est présent et qu'il est capturé
     if (this.currentPokemon && this.currentPokemon.isCaught(successRate)) {
       this.caughtCount++;
       const capturedPokemon = this.currentPokemon;
@@ -86,6 +94,7 @@ export class Game {
       };
     }
 
+    // Si aucun Pokémon n'est capturé mais que l'on tente une capture
     if (this.currentPokemon && Math.random() > 0.5) {
       const escapedPokemon = this.currentPokemon;
       this.currentPokemon = null;
@@ -97,9 +106,10 @@ export class Game {
       }
     }
 
+    // Si le Pokémon décide de rester dans le combat
     return {
       success: false,
-      message: `Aucun Pokémon à capturer. La ${type} a été utilisée !`,
+      message: `La Pokéball a été utilisée, mais ${this.currentPokemon.name} a résisté ! Il reste dans la bataille.`,
     };
   }
 
